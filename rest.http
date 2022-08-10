@@ -1,0 +1,7 @@
+###server status check
+get http://localhost:8000
+
+
+###==========admin API
+
+###POST NEW API ADMIN USER
