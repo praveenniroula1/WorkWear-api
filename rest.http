@@ -3,5 +3,16 @@ get http://localhost:8000
 
 
 ###==========admin API
-
 ###POST NEW API ADMIN USER
+post http://localhost:8000/api/v1/admin-user
+Content-Type: application/json
+
+{
+    "fName": "Praveen",
+    "lName": "Niroula",
+    "email": "a2sds@aa.com",
+    "password": "148526552" ,
+    "phone": "9874563210",
+    "dob": "2000/4/5",
+    "address": "10 yui road Hurstville 2220"
+}

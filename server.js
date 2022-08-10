@@ -3,12 +3,20 @@ import express from "express";
 const app = express();
 const PORT = process.env.PORT || 8000;
 
+// DB COnnection
+import { dbConnect } from "./src/config/dbConfig.js";
+dbConnect();
+
 // middleware
 import cors from "cors";
 import helmet from "helmet";
 app.use(cors());
 app.use(helmet());
 app.use(express.json());
+
+// APIS
+import adminUserRouter from "./src/routers/adminUserRouter.js";
+app.use("/api/v1/admin-user", adminUserRouter);
 
 app.get("/", (req, res) => {
   res.json({
