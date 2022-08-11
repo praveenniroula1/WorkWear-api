@@ -23,3 +23,37 @@ export const newAdminUserValidation = (req, res, next) => {
     next(error);
   }
 };
+export const emailVerification = (req, res, next) => {
+  try {
+    const schema = joi.object({
+      email: joi.string().email({ minDomainSegments: 2 }).required(),
+      emailValidationCode: joi.string().max(100).required(),
+    });
+
+    const { error } = schema.validate(req.body);
+    if (error) {
+      error.status = 200;
+      return next(error);
+    }
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+export const loginValidation = (req, res, next) => {
+  try {
+    const schema = joi.object({
+      email: joi.string().email({ minDomainSegments: 2 }).required(),
+      password: joi.string().max(100).required(),
+    });
+
+    const { error } = schema.validate(req.body);
+    if (error) {
+      error.status = 200;
+      return next(error);
+    }
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
