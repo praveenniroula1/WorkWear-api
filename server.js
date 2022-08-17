@@ -18,6 +18,7 @@ app.use(express.json());
 import adminUserRouter from "./src/routers/adminUserRouter.js";
 app.use("/api/v1/admin-user", adminUserRouter);
 
+
 // serverSide Rendering
 app.get("/", (req, res) => {
   res.json({

@@ -16,6 +16,7 @@ import {
   userVerifiedEmail,
   verificationEmail,
 } from "../helpers/emailHelper.js";
+import { createJWT, signAccessJwt } from "../helpers/jwtHelper.js";
 
 // server side validation
 //encrypt user passowrd
@@ -97,10 +98,13 @@ router.post("/login", loginValidation, async (req, res, next) => {
       const isMatched = ComparePassowrd(password, user.password);
       if (isMatched) {
         user.password = undefined;
+        // JWT
+        const jwts = await createJWT({ email });
         return res.json({
           status: "success",
           message: "You have logged in successfully.",
           user,
+          ...jwts,
         });
       }
     }

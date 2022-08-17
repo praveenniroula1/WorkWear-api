@@ -1,0 +1,8 @@
+send the login info to the login api
+if login success, create jwts
+a. access JWT, store in session table
+b. refresh JWT, store in user table
+return tokens to the frontEnd
+store tokens in the browser session
+a. access JWT  goes in sessionStorage
+b. access JWT  goes in localStorage
