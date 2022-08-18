@@ -25,3 +25,17 @@ Content-Type: application/json
     "email": "a@a.com",
     "password": "1" 
 }
+================
+###category apis testinng
+post http://localhost:8000/api/v1/category
+Content-Type: application/json
+
+{
+    "status": "active",
+"name": "MAcBook cheaper",
+"parentId":""
+}
+
+# GEt category
+###
+get http://localhost:8000/api/v1/category

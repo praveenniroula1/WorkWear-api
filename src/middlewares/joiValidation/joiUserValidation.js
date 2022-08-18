@@ -7,7 +7,9 @@ import {
   lName,
   password,
   phone,
+  SHORTSTR,
   validator,
+  STATUS,
 } from "./constant.js";
 
 export const newAdminUserValidation = (req, res, next) => {
@@ -36,6 +38,18 @@ export const loginValidation = (req, res, next) => {
   const schema = joi.object({
     email: email.required(),
     password: password.required(),
+  });
+
+  validator(schema, req, res, next);
+};
+
+// Category
+export const newCategoryValidation = (req, res, next) => {
+  req.body.parentId = req.body.parentId ? req.body.parentId : null;
+  const schema = joi.object({
+    status: STATUS,
+    name: SHORTSTR.required(),
+    parentId: SHORTSTR.allow(null, ""),
   });
 
   validator(schema, req, res, next);
