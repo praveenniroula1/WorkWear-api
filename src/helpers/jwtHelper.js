@@ -1,6 +1,9 @@
 import jwt from "jsonwebtoken";
 import { UpdateOneAdminUser } from "../models/adminUser/AdminUserModel.js";
-import { insertSession } from "../models/session/SessionModel.js";
+import {
+  deleteSession,
+  insertSession,
+} from "../models/session/SessionModel.js";
 
 export const signAccessJwt = async (payload) => {
   const accessJWT = jwt.sign(payload, process.env.JWT_ACCESS_SECRET, {
@@ -27,4 +30,17 @@ export const createJWT = async (payload) => {
     accessJWT: await signAccessJwt(payload),
     refreshJWT: await signRefreshJwt(payload),
   };
+};
+export const verifyAccessJwt = (token) => {
+  try {
+    return jwt.verify(token, process.env.JWT_ACCESS_SECRET);
+  } catch ({ message }) {
+    if (message === "jwt expired!!!") {
+      deleteSession({
+        type: "jwt",
+        token,
+      });
+    }
+    return message;
+  }
 };

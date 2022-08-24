@@ -6,3 +6,12 @@ return tokens to the frontEnd
 store tokens in the browser session
 a. access JWT  goes in sessionStorage
 b. access JWT  goes in localStorage
+
+
+step: 2
+receive accessJwt as a authorization header
+verify if accessJwtis valid
+verify if accessJwtexist in the session table
+then, get the user info by email which is available through jwt decode
+do next() 
+if any of the step fails above, return unauthorization error message
