@@ -15,3 +15,8 @@ verify if accessJwtexist in the session table
 then, get the user info by email which is available through jwt decode
 do next() 
 if any of the step fails above, return unauthorization error message
+
+
+FrontEnd autoLogin:
+case1: refreshing the same window
+case2: when we open to new tab or come back

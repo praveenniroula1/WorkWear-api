@@ -16,7 +16,12 @@ import {
   userVerifiedEmail,
   verificationEmail,
 } from "../helpers/emailHelper.js";
-import { createJWT, signAccessJwt } from "../helpers/jwtHelper.js";
+import {
+  createJWT,
+  signAccessJwt,
+  verifyRefreshJwt,
+} from "../helpers/jwtHelper.js";
+import { adminAuth } from "../middlewares/joiValidation/authMiddleWare/authMiddleWare.js";
 
 // server side validation
 //encrypt user passowrd
@@ -24,7 +29,20 @@ import { createJWT, signAccessJwt } from "../helpers/jwtHelper.js";
 // create unique verification code
 // send create a link pointing to our frontENd with email and verification code and send to their email
 
-router.post("/", newAdminUserValidation, async (req, res, next) => {
+router.get("/", adminAuth, (req, res, next) => {
+  try {
+    const user = req.adminInfo;
+    res.json({
+      status: "success",
+      message: "todo",
+      user,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.post("/", adminAuth, newAdminUserValidation, async (req, res, next) => {
   try {
     const { password } = req.body;
 
@@ -113,6 +131,37 @@ router.post("/login", loginValidation, async (req, res, next) => {
       message: "Invalid login or password",
     });
   } catch (error) {
+    next(error);
+  }
+});
+
+// generate  new accessJWT send back to the client
+router.get("/accessJWT", async (req, res, next) => {
+  try {
+    const { authorization } = req.headers;
+    if (authorization) {
+      // verify token
+      const decoded = verifyRefreshJwt(authorization);
+      console.log(decoded);
+      if (decoded.email) {
+        // check if in the database
+        const user = await FindOneAdminUser({ email: decoded.email });
+        if (user?._id) {
+          // create new accessJWT and return
+          return res.json({
+            status: "success",
+            accessJWT: await signAccessJwt({ email: decoded.email }),
+          });
+        }
+      }
+
+      res.status(401).json({
+        status: "error",
+        message: "not authenticated",
+      });
+    }
+  } catch (error) {
+    error.status = 401;
     next(error);
   }
 });

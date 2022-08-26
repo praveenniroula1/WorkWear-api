@@ -10,6 +10,7 @@ import {
   SHORTSTR,
   validator,
   STATUS,
+  LONGSTR,
 } from "./constant.js";
 
 export const newAdminUserValidation = (req, res, next) => {
@@ -63,5 +64,24 @@ export const updateCategoryValidation = (req, res, next) => {
     _id: SHORTSTR.required(),
   });
 
+  validator(schema, req, res, next);
+};
+
+// ===========Payment Validation
+export const newPaymentMethodValidation = (req, res, next) => {
+  const schema = joi.object({
+    status: STATUS,
+    name: SHORTSTR.required(),
+    description: LONGSTR.required(),
+  });
+  validator(schema, req, res, next);
+};
+export const updatePaymentMethodValidation = (req, res, next) => {
+  const schema = joi.object({
+    _id: SHORTSTR.required(),
+    status: STATUS,
+    name: SHORTSTR.required(),
+    description: LONGSTR.required(),
+  });
   validator(schema, req, res, next);
 };

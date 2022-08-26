@@ -25,6 +25,12 @@ Content-Type: application/json
     "email": "a@a.com",
     "password": "1" 
 }
+
+###get new accessJWT
+get http://localhost:8000/api/v1/admin-user/accessJWT
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAYS5jb20iLCJpYXQiOjE2NjEzODgyNTIsImV4cCI6MTY2Mzk4MDI1Mn0.FAGtAaw9eh6PUYq2S-Y1QsYhrPQsFfMAilWB9KcBGkg
+
+
 ================
 ###category apis testinng
 post http://localhost:8000/api/v1/category
@@ -39,3 +45,33 @@ Content-Type: application/json
 # GEt category
 ###
 get http://localhost:8000/api/v1/category
+
+# ============================
+### get payment methods
+get http://localhost:8000/api/v1/payment-method
+
+
+### get payment methods
+post http://localhost:8000/api/v1/payment-method
+Content-Type: application/json
+
+{
+    "status": "active",
+    "name": "Pay by afterpay",
+    "description": "follow the instruction to pay by credit card. AMEX is not allowed"
+}
+
+
+###update payment method
+put http://localhost:8000/api/v1/payment-method
+Content-Type: application/json
+
+{
+    "_id": "6306fc1388f175af9cc52603",
+    "status": "active",
+    "name": "Pay by id",
+    "description": "follow the instruction to pay by credit card. AMEX is not allowed"
+}
+
+###delete payment method
+DELETE http://localhost:8000/api/v1/payment-method/6306fc1388f175af9cc52603

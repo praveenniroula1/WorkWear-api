@@ -44,3 +44,6 @@ export const verifyAccessJwt = (token) => {
     return message;
   }
 };
+export const verifyRefreshJwt = (token) => {
+  return jwt.verify(token, process.env.JWT_REFRESH_SECRET);
+};
