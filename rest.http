@@ -54,10 +54,11 @@ get http://localhost:8000/api/v1/payment-method
 ### get payment methods
 post http://localhost:8000/api/v1/payment-method
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAYS5jb20iLCJpYXQiOjE2NjE0MDgyNTAsImV4cCI6MTY2MTQwOTE1MH0.11JYm0yw49zx31_ja-kFXfHHxme4ZJtOU0-dFNrqkjE
 
 {
     "status": "active",
-    "name": "Pay by afterpay",
+    "name": "Pay by zip",
     "description": "follow the instruction to pay by credit card. AMEX is not allowed"
 }
 
@@ -67,6 +68,7 @@ put http://localhost:8000/api/v1/payment-method
 Content-Type: application/json
 
 {
+
     "_id": "6306fc1388f175af9cc52603",
     "status": "active",
     "name": "Pay by id",
